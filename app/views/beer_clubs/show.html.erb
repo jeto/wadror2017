@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+
+<h2>
+  <%= @beer_club.name %>
+  <%= @beer_club.city %>
+</h2>
+
+<p>
+  Founded 
+  <%= @beer_club.founded %>
+</p>
+
+<h3>
+  Members
+</h3>
+<p>
+  <ul>
+    <% @beer_club.members.each do |member| %>
+      <li><%= link_to member.username, member %>
+    <% end %>
+  </ul>
+</p>
+
+<%= link_to 'Edit', edit_beer_club_path(@beer_club) %> |
+<%= link_to 'Back', beer_clubs_path %>
