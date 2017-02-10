@@ -11,12 +11,6 @@ class User < ActiveRecord::Base
   validates :username, uniqueness: true,
                        length: { in: 3..30 }
   validates :password, length: { minimum: 4 }
-
-  validate :password_complexity
-
-  def password_complexity
-    if !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
-      errors.add :password, "must include at least one lowercase letter, one uppercase letter, and one digit"
-    end
-  end
+  validates :password, format: { with: /([A-Z].*\d)|(\d.*[A-Z].*)/,
+              message: "must include at least one lowercase letter, one uppercase letter, and one digit" }
 end
