@@ -3,6 +3,8 @@ require 'rails_helper'
 include Helpers
 
 describe "Beers page" do
+  let!(:user) {FactoryGirl.create :user }
+  
   describe "when logged in" do
     before :each do
       sign_in(username:'Pekka', password:'Foobar1')
