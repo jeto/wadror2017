@@ -7,6 +7,18 @@
 <p>
   has made <%= pluralize(@user.ratings.count, 'rating') %>
 </p>
+<% if @user.favorite_beer or @user.favorite_style or @user.favorite_brewery %>
+<p>Favorite</p>
+  <% if @user.favorite_beer %>
+    <p>beer: <%= @user.favorite_beer %></p>
+  <% end %>
+  <% if @user.favorite_style %>
+    <p>style: <%= @user.favorite_style %></p>
+  <% end %>
+  <% if @user.favorite_brewery %>
+    <p>brewery: <%= @user.favorite_brewery %></p>
+  <% end %>
+<% end %>
 
 <% if !@user.beer_clubs.empty? %>
 <p>member of 
