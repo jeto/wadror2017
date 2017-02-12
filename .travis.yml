@@ -1,0 +1,16 @@
+language: ruby
+rvm:
+- 2.2.0
+script:
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec -fd spec/
+deploy:
+  provider: heroku
+  api_key:
+    secure: CmeUfuGAFeJL9TndQggRcG+crRNhPrOrU/xS9Y1TJ0cfjiHKGPqmW9QdqES9C7JmnS3zclpg2snukRnPsC9j0KaYrGiIduoziK9Vp7GaNFhBbSDi4CA9fPh4EP0QdMDrSB9OAEiteFE2XIs0Qn3LwVMMCiaqhPSzmNnmLTNjr62HCbLuWc8nWaQcP7Gc1tzpggJIz1e0OKp72kn/ki5rfe8YpF6zBDqRxvP55uOITKhgkSmMN0Y7rVNrmx9T81sqCCGClPeeTru+KKcmB3hCJVXoQxX+eFsy3eA4wrgeCf6bn7PiNb7tb8gXNgSDTc9I2IeRjNBnLPTTchZV9VF2OtA2zOnCunOow6+IUYgJRRCK9uH4NfrpqaNEOavQ0XDyemDdoMj99maW8vRub/QGSmBsrMbCcpXnJajRCVGP7lEwjkoRrpfnlO7ZFncYqRhq3F2USGFoo36xzY3b6zFEX7a388VG7r6Y8Xv6PkMOxXNwhpsH14Tm55ojQz4sDBiZRq823SNazQp6slKFotR6SaNldCQ/f9sTlAqn24k0Z/+m9Cn2VUQJZeRbzVkqhpS7Nj5YAknHtk/Ttv9Pza79mgqn+eAfLwIjoFZXwIDYln7YBG+PZcGvTyPfqLBfoc7kpQO1i7nufwyFI4siW/CNZ1Mp7RNWQe224XgTesnFFz4=
+  app: kalia-app
+  on:
+    repo: jeto/wadror2017
+  run: "rake db:migrate"
