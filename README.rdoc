@@ -1,4 +1,0 @@
-== Beer rating app
-wadror 2017
-
-http://kalia-app.herokuapp.com/

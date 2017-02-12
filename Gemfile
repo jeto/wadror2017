@@ -46,6 +46,7 @@ group :development, :test do
   gem 'pry-rails'
   #Tests
   gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-its'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
@@ -62,5 +63,6 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
+  gem 'simplecov', require: false
 end
 
