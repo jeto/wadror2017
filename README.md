@@ -2,6 +2,8 @@
 
 wadror 2017
 
+Ruby On Rails Web Application Development course assignment.
+
 http://kalia-app.herokuapp.com/
 
 [![Build Status](https://travis-ci.org/jeto/wadror2017.png)](https://travis-ci.org/jeto/wadror2017)
