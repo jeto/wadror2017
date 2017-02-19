@@ -9,15 +9,17 @@
 <% if @places %>
   <table>
     <thead>
-      <% Place.rendered_fields.each do |f| %>
-        <td><%=f %></td>
-      <% end %>
+        <td>Name</td>
+        <td>Type</td>
+        <td>Address</td>
+        <td>Rating</td>
     </thead>
     <% @places.each do |place| %>
-      <tr>
-        <% Place.rendered_fields.each do |f| %>
-          <td><%= place.send(f) %></td>
-        <% end %>
+      <tr>  
+        <td><%= link_to place.name, place_path(place.id) %></td>
+        <td><%= place.status %></td>
+        <td><%= place.street %>, <%= place.city %>, <%= place.country %></td>
+        <td><%= place.overall %></td>
       </tr>
     <% end %>
   </table>

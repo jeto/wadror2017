@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<h2>
+  <%= @place.name %>
+</h2>
+
+<p>
+  <%= @place.street %>
+</p>
+<p>
+  <%= @place.city %>
+  <%= @place.zip %>
+</p>
+
+<iframe src="https://www.google.com/maps/embed/v1/search?q=<%= @place.name%>,<%= @place.country %>
+  &key=<%=ENV['MAPSAPIKEY']%>">
+</iframe>
+
+<br />
+<%= link_to 'Back', places_path %>

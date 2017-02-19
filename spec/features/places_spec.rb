@@ -3,7 +3,7 @@ require 'rails_helper'
 describe "Places" do
   it "if one is returned by the API, it is shown at the page" do
     allow(BeermappingApi).to receive(:places_in).with("kumpula").and_return(
-      [ Place.new( name:"Oljenkorsi", id: 1 ) ]
+      [ Place.new( name:"Oljenkorsi", id: 1, city:"kumpula" ) ]
     )
 
     visit places_path
@@ -15,8 +15,8 @@ describe "Places" do
 
   it "if multiple is returned by the API, all are shown at the page" do
     allow(BeermappingApi).to receive(:places_in).with("helsinki").and_return(
-      [ Place.new( name:"Kaisla", id: 1 ), 
-        Place.new( name:"BrewDog", id: 2)]
+      [ Place.new( name:"Kaisla", id: 1, city:"helsinki" ), 
+        Place.new( name:"BrewDog", id: 2, city:"helsinki")]
     )
 
     visit places_path
