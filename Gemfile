@@ -39,6 +39,9 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+#HTTP requests
+gem 'httparty'
+
 group :development, :test do
   gem "better_errors"
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -64,5 +67,6 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', require: false
+  gem 'webmock'
 end
 

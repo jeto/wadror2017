@@ -18,7 +18,7 @@ RSpec.describe Beer, type: :model do
   it "is not created without a style" do
     beer = Beer.create name:"Kalja"
 
-    
+    expect(beer).not_to be_valid
     expect(Beer.count).to eq(0)
   end
 
