@@ -13,4 +13,7 @@ deploy:
   app: kalia-app
   on:
     repo: jeto/wadror2017
-  run: "rake db:migrate"
+  run: rake db:migrate
+env:
+  matrix:
+    secure: NB3/9omB3s8RCPV6oVtM+3zXJ7tIrb003ca1gKj/+TTdxED6X1yJNTodWxxxY8f0ZlLU1zc3xbHdEUead/RYldv5qDpZBOZ9nKf6HILrSJdOe3eh+A6WWCHL4ammlPx+0QLcjqdIi9g3CfMx5Bz5fTAtC3gzfrNUdubj4qWxbSO5pab8IIu8N9XqU68LG007G/5ObgP3dm24TDskgLSRfLPnQuF1GTYOW9soUBgs84Q/i8ZcfAJBOatTHeFt8ODjJilM5DCCo3qIcy/vYgWIfbOgpSkUZmjZJrZ6vvw2gvRUjsNnKMJ7J20QE3dCcRrE4lTHKxbOwvZdHeyWbKuuclmWp53ZOnZdavifzotEwGTiLvmqzYPV3JlN+1r6JqTeFlLaDMBIYfE67TgRFwJntQN7/vXStYxu+CmyAGZcXYyrE2XRIu5BHhlzHUH6v0CRfmgqFRUv/BYFTsN7hVDxAwcWwwD5fuk86QpcW1K9ee5xV//TxbMegoQTgWiAM7g1gQABGFbXqmEQqHhq2Fk7Bbi7ilHEAniHFA8FNi6XIMizYtjitFArQYTwAD0JTz8Op1OBCoRSUF1c8wiWLgAlA8GjMnTupusmNMrAHly41Jis3JVX5dnGxVwm+/wfiQCZdWYfrREKgxmK9EEhSgO7dHzR5R5sXD42bpGN9xM2dZc=
