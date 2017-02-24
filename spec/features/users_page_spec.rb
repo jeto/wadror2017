@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 describe "User" do
-  before :each do
-    @user = FactoryGirl.create :user
-  end
+  let!(:user) { FactoryGirl.create :user }
 
   describe "who has signed up" do
     it "can signin with right credentials" do
@@ -31,53 +29,55 @@ describe "User" do
       }.to change{User.count}.by(1)
     end
 
-    it "shows ratings made by the user on their page" do
-      sign_in(username:'Pekka', password:'Foobar1')
-      user2 = FactoryGirl.create(:user, username:"mikko")
-      create_beers_with_ratings(@user, 10, 20, 15, 7)
-      create_beers_with_ratings(user2, 22, 21, 5, 17)
-      visit user_path @user
+    describe "when have given ratings" do
+      before :each do
+        create_beers_with_ratings(FactoryGirl.create(:brewery), FactoryGirl.create(:style), user, 10, 20, 15, 7)
+      end
 
-      expect(page).to have_content 'has made 4 ratings'
-      expect(page).to have_content 'anonymous 10'
-      expect(page).to have_content 'anonymous 20'
-      expect(page).to have_content 'anonymous 15'
-      expect(page).to have_content 'anonymous 7'
-    end
+      it "shows ratings made by the user on their page" do
+        sign_in(username:'Pekka', password:'Foobar1')
+        user2 = FactoryGirl.create(:user, username:"mikko")
+        create_beers_with_ratings(FactoryGirl.create(:brewery), FactoryGirl.create(:style), user2, 22, 21, 5, 17)
+        visit user_path user
 
-    it "rating is deleted from db when deleting" do
-      sign_in(username:'Pekka', password:'Foobar1')
-      create_beer_with_rating(@user, 10)
+        expect(page).to have_content 'has made 4 ratings'
+        expect(page).to have_content 'anonymous 10'
+        expect(page).to have_content 'anonymous 20'
+        expect(page).to have_content 'anonymous 15'
+        expect(page).to have_content 'anonymous 7'
+      end
 
-      visit user_path @user
-      
-      expect{
-        first(:link, 'delete').click
-      }.to change{@user.ratings.count}.by(-1)
-    end
+      it "rating is deleted from db when deleting" do
+        sign_in(username:'Pekka', password:'Foobar1')
+        create_beer_with_rating(FactoryGirl.create(:brewery), FactoryGirl.create(:style), user, 10)
 
-    it "shows favorite beer" do
-      create_beers_with_ratings(@user, 10, 20, 15, 7)
+        visit user_path user
+        
+        expect{
+          first(:link, 'delete').click
+        }.to change{user.ratings.count}.by(-1)
+      end
 
-      visit user_path @user
-      expect(page).to have_content 'Favorite'
-      expect(page).to have_content 'beer: anonymous'
-    end
+      it "shows favorite beer" do
+        visit user_path user
 
-    it "shows favorite style" do
-      create_beers_with_ratings(@user, 10, 20, 15, 7)
+        expect(page).to have_content 'Favorite'
+        expect(page).to have_content 'beer: anonymous'
+      end
 
-      visit user_path @user
-      expect(page).to have_content 'Favorite'
-      expect(page).to have_content 'style: Lager'
-    end
+      it "shows favorite style" do
+        visit user_path user
 
-    it "shows favorite brewery" do
-      create_beers_with_ratings(@user, 10, 20, 15, 7)
+        expect(page).to have_content 'Favorite'
+        expect(page).to have_content 'style: anonymous'
+      end
 
-      visit user_path @user
-      expect(page).to have_content 'Favorite'
-      expect(page).to have_content 'brewery: anonymous'
+      it "shows favorite brewery" do
+        visit user_path user
+
+        expect(page).to have_content 'Favorite'
+        expect(page).to have_content 'brewery: anonymous'
+      end
     end
   end
 end

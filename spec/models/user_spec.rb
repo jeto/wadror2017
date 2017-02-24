@@ -42,6 +42,7 @@ RSpec.describe User, type: :model do
 
   describe "favorite beer" do
     let(:user){ FactoryGirl.create(:user) }
+    let(:style){ FactoryGirl.create(:style) }
 
     it "has method for determining one" do
       expect(user).to respond_to(:favorite_beer)
@@ -59,8 +60,8 @@ RSpec.describe User, type: :model do
     end
 
     it "is the one with highest rating if several rated" do
-      create_beers_with_ratings(user, 10, 20, 15, 7, 9)
-      best = create_beer_with_rating(user, 25)
+      best = create_beer_with_rating(FactoryGirl.create(:brewery), style, user, 25)
+      create_beers_with_ratings(FactoryGirl.create(:brewery),  style, user, 10, 20, 15, 7, 9)
 
       expect(user.favorite_beer).to eq(best)
     end
@@ -68,6 +69,7 @@ RSpec.describe User, type: :model do
 
   describe "favorite style" do
     let(:user){ FactoryGirl.create(:user) }
+    let(:style){ FactoryGirl.create(:style) }
 
     it "has method for determining one" do
       expect(user).to respond_to(:favorite_style)
@@ -78,22 +80,23 @@ RSpec.describe User, type: :model do
     end
 
     it "is the only style if only one rating" do
-      beer = FactoryGirl.create(:beer)
-      rating = FactoryGirl.create(:rating, beer:beer, user:user)
+      create_beer_with_rating(FactoryGirl.create(:brewery), style, user, 25)
 
-      expect(user.favorite_style).to eq("Lager")
+      expect(user.favorite_style).to eq(style)
     end
 
     it "is the one with highest rating if several rated" do
-      create_beers_with_ratings(user, 10, 20, 20)
-      create_beer_with_rating_and_style(user, 25, "IPA")
+      create_beers_with_ratings(FactoryGirl.create(:brewery), FactoryGirl.create(:style), user, 10, 7, 9)
+      create_beers_with_ratings(FactoryGirl.create(:brewery), style, user, 35, 45)
+      create_beers_with_ratings(FactoryGirl.create(:brewery), FactoryGirl.create(:style), user, 50, 10, 15, 20)
 
-      expect(user.favorite_style).to eq("IPA")
+      expect(user.favorite_style).to eq(style)
     end
   end
 
   describe "favorite brewery" do
     let(:user){ FactoryGirl.create(:user) }
+    let(:style){ FactoryGirl.create(:style) }
 
     it "has method for determining one" do
       expect(user).to respond_to(:favorite_brewery)
@@ -104,19 +107,19 @@ RSpec.describe User, type: :model do
     end
 
     it "is the only brewery if only one rating" do
-      beer = FactoryGirl.create(:beer)
-      rating = FactoryGirl.create(:rating, beer:beer, user:user)
+      brewery = FactoryGirl.create(:brewery) 
+      beer = create_beer_with_rating(brewery, style, user, 25)
 
-      expect(user.favorite_brewery).to eq("anonymous")
+      expect(user.favorite_brewery).to eq(brewery)
     end
 
     it "is the one with highsest rating if several rated" do
-      create_beers_with_ratings(user, 10, 22, 10)
-      best = FactoryGirl.create(:brewery, name:"bestbeers")
-      beer = FactoryGirl.create(:beer, brewery:best)
-      FactoryGirl.create(:rating, score: 30, beer:beer, user:user)
+      best = FactoryGirl.create(:brewery) 
+      create_beers_with_ratings(FactoryGirl.create(:brewery), style, user, 10, 7, 9)
+      create_beers_with_ratings(best, style, user, 35, 45)
+      create_beers_with_ratings(FactoryGirl.create(:brewery), style, user, 50, 10, 15, 20)
 
-      expect(user.favorite_brewery).to eq("bestbeers")
+      expect(user.favorite_brewery).to eq(best)
     end
   end
 end

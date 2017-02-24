@@ -4,8 +4,9 @@ include Helpers
 
 describe "Rating" do
   let!(:brewery) { FactoryGirl.create :brewery, name: "Koff" }
-  let!(:beer1) { FactoryGirl.create :beer, name:"iso 3", brewery:brewery }
-  let!(:beer2) { FactoryGirl.create :beer, name:"Karhu", brewery:brewery }
+  let!(:style) { FactoryGirl.create :style }
+  let!(:beer1) { FactoryGirl.create :beer, name:"iso 3" }
+  let!(:beer2) { FactoryGirl.create :beer, name:"Karhu" }
   let!(:user) {FactoryGirl.create :user }
 
   before :each do
@@ -28,8 +29,8 @@ describe "Rating" do
 
   it "shows ratings made by users" do
     user2 = FactoryGirl.create(:user, username:"mikko")
-    create_beers_with_ratings(user2, 22, 21, 5, 17)
-    create_beers_with_ratings(user, 10, 20, 15, 7, 9)
+    create_beers_with_ratings(brewery, style, user2, 22, 21, 5, 17)
+    create_beers_with_ratings(brewery, style, user, 10, 20, 15, 7, 9)
 
     visit ratings_path
 

@@ -3,7 +3,8 @@ require 'rails_helper'
 include Helpers
 
 describe "Beers page" do
-  let!(:user) {FactoryGirl.create :user }
+  let!(:user) { FactoryGirl.create :user }
+  let!(:style) { FactoryGirl.create :style }
   
   describe "when logged in" do
     before :each do
@@ -15,7 +16,7 @@ describe "Beers page" do
       visit new_beer_path
 
       fill_in('Name', with:'Kalja')
-      select('Lager', from:'Style')
+      select('anonymous', from:'Style')
       select('anonymous', from:'Brewery')
 
       expect{
@@ -27,7 +28,7 @@ describe "Beers page" do
       visit new_beer_path
 
       fill_in('Name', with:'')
-      select('Lager', from:'Style')
+      select('anonymous', from:'Style')
       select('anonymous', from:'Brewery')
 
       expect{

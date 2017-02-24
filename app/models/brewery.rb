@@ -24,4 +24,8 @@ class Brewery < ActiveRecord::Base
       ratingssum = ratingsmap.reduce(:+)
       ratingssum / ratings.count.to_f
     end
+
+    def to_s
+      name
+    end
 end
