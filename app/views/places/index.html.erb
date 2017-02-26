@@ -6,6 +6,22 @@
   <%= submit_tag "Search" %>
 <% end %>
 
+<% if @weather %>
+  <h4>Current weather in <%= @weather.city %></h4>
+  <img src="<%= @weather.image %>" >
+  <br />
+  <div>
+    <%= @weather.temperature %> &#8451;
+  </div>
+  <br />
+  <div>
+    <strong>wind:</strong>
+      <%= @weather.wind_speed %> m/sec
+      <%= @weather.wind_direction %>
+    </div>
+    <br />
+<% end %>
+
 <% if @places %>
   <table>
     <thead>

@@ -2,6 +2,10 @@ require 'rails_helper'
 
 describe "Places" do
   it "if one is returned by the API, it is shown at the page" do
+    allow(WeatherService).to receive(:weather_for).with("kumpula").and_return(
+      nil
+    )
+
     allow(BeermappingApi).to receive(:places_in).with("kumpula").and_return(
       [ Place.new( name:"Oljenkorsi", id: 1, city:"kumpula" ) ]
     )
@@ -14,6 +18,9 @@ describe "Places" do
   end
 
   it "if multiple is returned by the API, all are shown at the page" do
+    allow(WeatherService).to receive(:weather_for).with("helsinki").and_return(
+      nil
+    )
     allow(BeermappingApi).to receive(:places_in).with("helsinki").and_return(
       [ Place.new( name:"Kaisla", id: 1, city:"helsinki" ), 
         Place.new( name:"BrewDog", id: 2, city:"helsinki")]
@@ -27,6 +34,9 @@ describe "Places" do
   end
 
   it "if none are returned by the API, show correct notification" do
+    allow(WeatherService).to receive(:weather_for).with("lande").and_return(
+      nil
+    )
     allow(BeermappingApi).to receive(:places_in).with("lande").and_return(
       []
     )
