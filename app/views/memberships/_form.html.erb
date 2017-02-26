@@ -12,12 +12,12 @@
   <% end %>
 
 <% unless @beer_clubs.empty? %>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :beer_club_id %><br>
-    <%= f.select :beer_club_id, options_from_collection_for_select(@beer_clubs, :id, :name) %>
+    <%= f.select :beer_club_id, options_from_collection_for_select(@beer_clubs, :id, :name), {}, class:"form-control" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class:"btn btn-primary" %>
   </div>
 <% else %>
   No clubs to join.

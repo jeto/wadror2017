@@ -10,25 +10,21 @@
       </ul>
     </div>
   <% end %>
+  <div class="form-group">
 <% if @user.new_record? %>
-  <div class="field">
     <%= f.label :username %><br>
-    <%= f.text_field :username %>
-  </div>
+    <%= f.text_field :username, class:"form-control" %>
 <% end %>
-  <div class="field">
     <% if @user.new_record? %>
       <%= f.label :password %><br />
     <% else %>
       <%= f.label :password, 'New password' %><br />
     <% end %>
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
+    <%= f.password_field :password, class:"form-control" %>
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation  %>
+    <%= f.password_field :password_confirmation, class:"form-control" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class:"btn btn-primary" %>
   </div>
 <% end %>
