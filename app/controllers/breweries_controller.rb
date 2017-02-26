@@ -1,12 +1,13 @@
 class BreweriesController < ApplicationController
   before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :ensure_that_admin, only: :destroy
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
 
   # GET /breweries
   # GET /breweries.json
   def index
-    @active_breweries = Brewery.where(active:true)
-    @retired_breweries = Brewery.where(active:[nil,false])
+    @active_breweries = Brewery.active
+    @retired_breweries = Brewery.retired
     #@breweries = Brewery.all
   end
 
@@ -62,6 +63,15 @@ class BreweriesController < ApplicationController
       format.html { redirect_to breweries_url, notice: 'Brewery was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def toggle_activity
+    brewery = Brewery.find(params[:id])
+    brewery.update_attribute :active, (not brewery.active)
+
+    new_status = brewery.active? ? "active" : "retired"
+
+    redirect_to :back, notice:"brewery activity status changed to #{new_status}"
   end
 
   private

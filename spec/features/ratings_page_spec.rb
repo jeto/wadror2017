@@ -27,14 +27,14 @@ describe "Rating" do
     expect(beer1.average_rating).to eq(15.0)
   end
 
-  it "shows ratings made by users" do
+  it "shows recent ratings made by users" do
     user2 = FactoryGirl.create(:user, username:"mikko")
     create_beers_with_ratings(brewery, style, user2, 22, 21, 5, 17)
     create_beers_with_ratings(brewery, style, user, 10, 20, 15, 7, 9)
 
     visit ratings_path
 
-    expect(page).to have_content 'Number of ratings: 9'
-    expect(page).to have_content('anonymous', count: 9)
+    expect(page).to have_content 'anonymous 10 Pekka'
+    expect(page).to have_content 'anonymous 20 Pekka'
   end
 end

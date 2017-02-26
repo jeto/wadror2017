@@ -46,4 +46,10 @@ class User < ActiveRecord::Base
     end  
     averages_of_styles.sort_by{ |b| -b[:rating] }.first[:style]
   end 
+
+  def self.top(n)
+    sorted_by_ratings_in_desc_order = User.all.sort_by{ |u| -(u.ratings.count||0)}
+    sorted_by_ratings_in_desc_order.first(n)
+  end
+
 end

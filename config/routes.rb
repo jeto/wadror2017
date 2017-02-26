@@ -9,6 +9,14 @@ Rails.application.routes.draw do
 
   resources :beers, :breweries
 
+  resources :breweries do
+    post 'toggle_activity', on: :member
+  end
+
+  resources :users do
+    post 'toggle_ban', on: :member
+  end
+
   root 'breweries#index'
 
   get 'kaikki_bisset', to: 'beers#index'
