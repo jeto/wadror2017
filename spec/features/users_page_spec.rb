@@ -62,21 +62,21 @@ describe "User" do
         visit user_path user
 
         expect(page).to have_content 'Favorite'
-        expect(page).to have_content 'beer: anonymous'
+        expect(page).to have_content 'Beer: anonymous'
       end
 
       it "shows favorite style" do
         visit user_path user
 
         expect(page).to have_content 'Favorite'
-        expect(page).to have_content 'style: anonymous'
+        expect(page).to have_content 'Style: anonymous'
       end
 
       it "shows favorite brewery" do
         visit user_path user
 
         expect(page).to have_content 'Favorite'
-        expect(page).to have_content 'brewery: anonymous'
+        expect(page).to have_content 'Brewery: anonymous'
       end
     end
   end
