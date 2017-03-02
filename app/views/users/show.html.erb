@@ -1,53 +1,85 @@
 <h2>
   <%= @user.username %>
   <% if @user.banned? %>
-    <span class="label label-danger">Banned</span>
-  <% end %></h2>
+  <span class="label label-danger">Banned</span>
+  <% end %>
+</h2>
 
 <% if current_user && current_user.admin? && current_user != @user %>
-  <% if @user.banned? %>
-    <%= link_to "Unban user", toggle_ban_user_path(@user.id), method: :post, class: "btn btn-primary" %>
-    <% else %>
-    <%= link_to "Ban user", toggle_ban_user_path(@user.id), method: :post, class: "btn btn-danger" %>
-    <% end %>
+<% if @user.banned? %>
+<%= link_to "Unban user", toggle_ban_user_path(@user.id), method: :post, class: "btn btn-primary" %>
+<% else %>
+<%= link_to "Ban user", toggle_ban_user_path(@user.id), method: :post, class: "btn btn-danger" %>
 <% end %>
-<p>
+<% end %>
+<p><i>
   has made <%= pluralize(@user.ratings.count, 'rating') %>
-</p>
-<% if @user.favorite_beer or @user.favorite_style or @user.favorite_brewery %>
-<p>Favorite</p>
-  <% if @user.favorite_beer %>
-    <p>beer: <%= @user.favorite_beer %></p>
-  <% end %>
-  <% if @user.favorite_style %>
-    <p>style: <%= @user.favorite_style %></p>
-  <% end %>
-  <% if @user.favorite_brewery %>
-    <p>brewery: <%= @user.favorite_brewery %></p>
-  <% end %>
-<% end %>
+</i></p>
 
-<% if !@user.beer_clubs.empty? %>
-<p>member of 
-  <% @user.beer_clubs.each do |club| %>
-    <%= link_to club.name, club %>
+<div class="row">
+  <% if @user.favorite_beer or @user.favorite_style or @user.favorite_brewery %>
+  <div class="col-xs-6 col-sm-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">Favorite</div>
+      <div class="panel-body">
+        <% if @user.favorite_beer %>
+        <p><strong>Beer:</strong> <%= @user.favorite_beer %></p>
+        <% end %>
+        <% if @user.favorite_style %>
+        <p><strong>Style:</strong> <%= @user.favorite_style %></p>
+        <% end %>
+        <% if @user.favorite_brewery %>
+        <p><strong>Brewery:</strong> <%= @user.favorite_brewery %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
   <% end %>
-</p>
-<%end%>
+  <div class="col-xs-6 col-sm-6">
+    <% if !@user.beer_clubs.empty? || !@user.applications.empty? %>
+    <div class="panel panel-default">
+      <div class="panel-heading">Beerclubs</div>
+      <div class="panel-body">
+        <strong>member of</strong>
+        <ul>
+          <% @user.beer_clubs.each do |club| %>
+          <li><%= link_to club.name, club %></li>
+          <% end %>
+        </ul>
 
-<h3>ratings</h3>
-<ul>
-  <% @user.ratings.each do |rating| %>
-    <li> <%= rating %> 
-      <% if @user == current_user %>
-        <%= link_to "<span class=\"glyphicon glyphicon-remove\">delete</span>".html_safe, rating, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% if !@user.applications.empty? %>
+        <strong>applied to</strong>
+        <ul>
+          <% @user.applications.each do |application| %>
+          <li><%= link_to application.beer_club.name, application.beer_club %></li>
+          <% end %>
+        </ul>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<% if !@user.ratings.empty? %>
+<div class="row">
+  <div class="col-xs-6 col-sm-6">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-title">Ratings</li>
+      <% @user.ratings.each do |rating| %>
+      <li class="list-group-item"> <%= rating %> 
+        <% if @user == current_user %>
+        <span class="badge badge-delete"><%= link_to "delete", rating, method: :delete, data: { confirm: 'Are you sure?'}, class:"text-white" %></span>
         <% end %>
       </li>
-  <%end%>
-</ul>
+      <%end%>
+    </ul>
+  </div>
+</div>
+<% end %>
 
 <% if @user == current_user %>
-  <%= link_to 'Edit', edit_user_path(@user), class:"btn btn-primary" %>
-  <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
+<%= link_to 'Edit', edit_user_path(@user), class:"btn btn-primary" %>
+<%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
 <% end %>
 <%= link_to 'Back', users_path, class:"btn btn-default" %>

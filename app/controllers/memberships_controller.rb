@@ -1,6 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :ensure_that_signed_in, except: [:index, :show]
-  before_action :set_membership, only: [:show, :edit, :update, :destroy]
+  before_action :set_membership, only: [:show, :edit, :update, :destroy, :confirm]
 
   # GET /memberships
   # GET /memberships.json
@@ -30,7 +30,7 @@ class MembershipsController < ApplicationController
       beer_club = BeerClub.find membership_params[:beer_club_id]
       if not current_user.in? beer_club.members and @membership.save
         current_user.memberships << @membership
-        redirect_to beer_club, notice: "#{current_user.username}, welcome to the club!"
+        redirect_to beer_club, notice: "#{current_user.username}, your application to the club has been submitted!"
       else
         @beer_clubs = BeerClub.all
         render :new
@@ -59,6 +59,13 @@ class MembershipsController < ApplicationController
       format.html { redirect_to current_user, notice: "You left #{@membership.beer_club.name}" }
       format.json { head :no_content }
     end
+  end
+
+  def confirm
+    if @membership.beer_club.members.include? current_user
+      @membership.update_attribute :confirmed, true
+    end
+    redirect_to :back, notice:"#{@membership.user.username}\'s application accepted"
   end
 
   private

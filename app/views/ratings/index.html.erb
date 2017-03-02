@@ -6,27 +6,39 @@
 
 <div class="row">
   <div class="col-sm-4">
-  <h3>Best beers</h3>
-
-  <%= render 'list', rated: @top_beers %>
+    <div class="panel panel-default">
+      <div class="panel-heading">Best beers</div>
+      <div class="panel-body">
+        <%= render 'list', rated: @top_beers %>
+      </div>
+    </div>
 
   </div>
   <div class="col-sm-4">
-
-  <h3>Best breweries</h3>
-
-  <%= render 'list', rated: @top_breweries %>
+    <div class="panel panel-default">
+      <div class="panel-heading">Best breweries</div>
+      <div class="panel-body">
+        <%= render 'list', rated: @top_breweries %>
+      </div>
+    </div>
   </div>
   <div class="col-sm-4">
-  <h3>Best styles</h3>
-
-  <%= render 'list', rated: @top_styles %>
+  <div class="panel panel-default">
+      <div class="panel-heading">Best styles</div>
+      <div class="panel-body">
+        <%= render 'list', rated: @top_styles %>
+      </div>
+    </div>
   </div>
 </div>
 <div class="row">
   <div class="col-sm-12">
-    <h3>Most ratings</h3>
-    <%= render 'users_list', user: @top_users %>
+    <div class="panel panel-default">
+      <div class="panel-heading">Top users</div>
+      <div class="panel-body">
+        <%= render 'users_list', user: @top_users %>
+      </div>
+    </div>
   </div>
 </div>
 <div class="row">
@@ -34,9 +46,9 @@
 
 
 <h3>Recent ratings</h3>
-<ul>
+<ul class="list-group">
   <% @ratings.recent.each do |rating| %>
-    <li> <%= rating %> <%= link_to rating.user.username, rating.user %></li>
+    <li class="list-group-item"> <%= rating %> <%= link_to rating.user.username, rating.user %></li>
   <%end%>
 </ul>
 </div>

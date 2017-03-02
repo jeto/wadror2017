@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     post 'toggle_ban', on: :member
   end
 
+  resources :memberships do
+    post 'confirm', on: :member
+  end
+
   root 'breweries#index'
 
   resources :ratings, only: [:index, :new, :create, :destroy]

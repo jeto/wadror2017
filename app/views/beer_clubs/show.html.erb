@@ -14,13 +14,22 @@
 <h3>
   Members
 </h3>
-<p>
   <ul>
     <% @beer_club.members.each do |member| %>
       <li><%= link_to member.username, member %>
     <% end %>
   </ul>
-</p>
+
+<% if @beer_club.members.include? current_user %>
+  <h3>Applications</h3>
+  <ul>
+  <% @beer_club.applications.each do |application| %>
+    <li><%= link_to application.user.username, application.user %>
+        <%= link_to "confirm", confirm_membership_path(application), method: :post, class:"btn btn-primary" %>
+    </li>
+  <% end %>
+  </ul>
+  <% end %>
 
 <% if current_user and !current_user.beer_clubs.include? @beer_club %>
   <%= form_for(@membership) do |f| %>

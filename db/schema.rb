@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170226200103) do
+ActiveRecord::Schema.define(version: 20170302180505) do
 
   create_table "beer_clubs", force: :cascade do |t|
     t.string   "name"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20170226200103) do
     t.integer  "user_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.boolean  "confirmed"
   end
 
   add_index "memberships", ["beer_club_id", "user_id"], name: "index_memberships_on_beer_club_id_and_user_id", unique: true
