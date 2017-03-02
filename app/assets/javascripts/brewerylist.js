@@ -1,10 +1,10 @@
 var BREWERIES = {};
 
-BREWERIES.show = ()=>{
+BREWERIES.show = function(){
   $("#breweriestable tr:gt(0)").remove();
   var table = $('#breweriestable');
 
-  $.each(BREWERIES.list, (index,breweries)=>{
+  $.each(BREWERIES.list, function(index,breweries){
     table.append('<tr>'
                   + '<td>'+breweries['name']+'</td>'
                   + '<td>'+breweries['year']+'</td>'
@@ -13,42 +13,42 @@ BREWERIES.show = ()=>{
   });
 }
 
-BREWERIES.sort_by_name = ()=>{
-  BREWERIES.list.sort( (a,b)=>{
+BREWERIES.sort_by_name = function(){
+  BREWERIES.list.sort( function(a,b){
     return a.name.toUpperCase().localeCompare(b.name.toUpperCase());
   });
 };
 
-BREWERIES.sort_by_year = ()=>{
-  BREWERIES.list.sort( (a,b)=>{
+BREWERIES.sort_by_year = function(){
+  BREWERIES.list.sort( function(a,b){
     return a.year < b.year;
   });
 };
 
-BREWERIES.sort_by_beers = ()=>{
-  BREWERIES.list.sort( (a,b)=>{
+BREWERIES.sort_by_beers = function(){
+  BREWERIES.list.sort( function(a,b){
     return a.beers.count < b.beers.count;
   });
 };
 
-$(document).ready(()=>{
+$(document).ready(function(){
   if ( $("#breweriestable").length>0 ){
-    $("#name").click((e)=>{
+    $("#name").click(function(e){
     BREWERIES.sort_by_name();
     BREWERIES.show();
     e.preventDefault();
     });
-    $("#year").click((e)=>{
+    $("#year").click(function(e){
       BREWERIES.sort_by_year();
       BREWERIES.show();
       e.preventDefault();
     });
-    $("#beers").click((e)=>{
+    $("#beers").click(function(e){
       BREWERIES.sort_by_beers();
       BREWERIES.show();
       e.preventDefault();
     });
-    $.getJSON('breweries.json', (breweries)=>{
+    $.getJSON('breweries.json', function(breweries){
       BREWERIES.list = breweries;
       BREWERIES.sort_by_name();
       BREWERIES.show();
