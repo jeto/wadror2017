@@ -1,12 +1,8 @@
 Rails.application.routes.draw do
   resources :styles
-
   resources :memberships
-
   resources :beer_clubs
-
   resources :users
-
   resources :beers, :breweries
 
   resources :breweries do
@@ -19,19 +15,19 @@ Rails.application.routes.draw do
 
   root 'breweries#index'
 
-  get 'kaikki_bisset', to: 'beers#index'
-
   resources :ratings, only: [:index, :new, :create, :destroy]
 
   get 'signup', to: 'users#new'
-
-  resource :session, only: [:new, :create, :destroy]
-
   get 'signin', to: 'sessions#new'
   delete 'signout', to: 'sessions#destroy'
 
+  resource :session, only: [:new, :create, :destroy]
+
   resources :places, only: [:index, :show]
   post 'places', to:'places#search'
+
+  get 'beerlist', to:'beers#list'
+  get 'brewerieslist', to:'breweries#list'
 
   #get 'ratings', to: 'ratings#index'
 

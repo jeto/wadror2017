@@ -1,5 +1,5 @@
 class BreweriesController < ApplicationController
-  before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :ensure_that_signed_in, except: [:index, :show, :list]
   before_action :ensure_that_admin, only: :destroy
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
 
@@ -8,12 +8,34 @@ class BreweriesController < ApplicationController
   def index
     @active_breweries = Brewery.active
     @retired_breweries = Brewery.retired
-    #@breweries = Brewery.all
+    @breweries = Brewery.all
+
+    order = params[:order] || 'name'
+
+    @active_breweries = case order
+      when 'name' then @active_breweries.sort_by{ |b| b.name }
+      when 'year' then @active_breweries.sort_by{ |b| b.year }
+    end
+    @retired_breweries = case order
+      when 'name' then @retired_breweries.sort_by{ |b| b.name }
+      when 'year' then @retired_breweries.sort_by{ |b| b.year }
+    end
+
+    if order == session[:last_order]
+      @active_breweries.reverse!
+      @retired_breweries.reverse!
+      session[:last_order] = nil
+    else
+      session[:last_order] = order
+    end
   end
 
   # GET /breweries/1
   # GET /breweries/1.json
   def show
+  end
+
+  def list
   end
 
   # GET /breweries/new
