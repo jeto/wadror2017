@@ -23,13 +23,13 @@
       <div class="panel-heading">Favorite</div>
       <div class="panel-body">
         <% if @user.favorite_beer %>
-        <p><strong>Beer:</strong> <%= @user.favorite_beer %></p>
+        <p><strong>Beer:</strong> <%= link_to @user.favorite_beer %></p>
         <% end %>
         <% if @user.favorite_style %>
-        <p><strong>Style:</strong> <%= @user.favorite_style %></p>
+        <p><strong>Style:</strong> <%= link_to @user.favorite_style %></p>
         <% end %>
         <% if @user.favorite_brewery %>
-        <p><strong>Brewery:</strong> <%= @user.favorite_brewery %></p>
+        <p><strong>Brewery:</strong> <%= link_to @user.favorite_brewery %></p>
         <% end %>
       </div>
     </div>
@@ -67,7 +67,14 @@
     <ul class="list-group">
       <li class="list-group-item list-group-item-title">Ratings</li>
       <% @user.ratings.each do |rating| %>
-      <li class="list-group-item"> <%= rating %> 
+      <li class="list-group-item"> <span class="label label-<% case
+                                      when rating.score>=40 %>success<%
+                                      when rating.score>=30 %>info<%
+                                      when rating.score>=20 %>primary<%
+                                      when rating.score>=10 %>warning<%
+                                      else %>danger<% end %> col-xs-1">
+                                      <%= rating.score %></span>
+        &nbsp;<%= link_to rating.beer.name, rating.beer %>
         <% if @user == current_user %>
         <span class="badge badge-delete"><%= link_to "delete", rating, method: :delete, data: { confirm: 'Are you sure?'}, class:"text-white" %></span>
         <% end %>

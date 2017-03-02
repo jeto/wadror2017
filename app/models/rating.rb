@@ -9,7 +9,7 @@ class Rating < ActiveRecord::Base
   scope :recent, -> { Rating.order(:updated_at).reverse_order.first(5) }
 
   def to_s
-    "#{beer.name} #{score}"
+    "#{beer.name}, #{score}"
   end
 
 end

@@ -148,7 +148,9 @@
         null,
         1,
         1,
+        46,
         1,
+        16,
         1,
         null,
         1,
@@ -522,6 +524,8 @@
       "/Users/Jere/wadror/ratebeer/app/models/beer_club.rb": [
         1,
         1,
+        1,
+        null,
         1,
         null
       ],
@@ -926,6 +930,13 @@
         0,
         0,
         0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         0
       ],
       "/Users/Jere/wadror/ratebeer/app/models/weather.rb": [
@@ -941,6 +952,6 @@
         0
       ]
     },
-    "timestamp": 1488476968
+    "timestamp": 1488488621
   }
 }
