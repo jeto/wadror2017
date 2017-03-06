@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :beers, through: :ratings
   has_many :memberships, -> { where confirmed:true }, dependent: :destroy
   has_many :beer_clubs, through: :memberships 
-  has_many :applications, -> { where confirmed:[nil, false] }, class_name: 'Membership'
+  has_many :applications, -> { where confirmed:[nil, false] }, class_name: 'Membership', dependent: :destroy
   has_many :applied_beer_clubs, through: :memberships, source: :beer_club
 
   validates :username, uniqueness: true,
