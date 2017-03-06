@@ -1,7 +1,3 @@
-<div style="border-style: solid;">
-  cache exists?: <%= ActionController::Base.new.fragment_exist?( @beer ) %>
-</div>
-<br>
 <% cache @beer do %>
 
 <h2>

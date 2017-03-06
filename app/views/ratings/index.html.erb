@@ -1,7 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <h2>Rating statistics</h2>
 
+<% cache 'ratings-cache', expires_in:5.minutes, skip_digest: true do %>
 <p>Number of ratings: <%= @ratings.count %> </p>
 
 <div class="row">
@@ -59,5 +58,7 @@
   </div>
 </div>
 <br />
+
+<% end %>
 
 <%= link_to('New Rating', new_rating_path, class:"btn btn-primary") if current_user %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302205807) do
+ActiveRecord::Schema.define(version: 20170306195633) do
 
   create_table "beer_clubs", force: :cascade do |t|
     t.string   "name"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20170302205807) do
     t.string   "password_digest"
     t.boolean  "admin",           default: false
     t.boolean  "banned",          default: false
+    t.boolean  "oauth",           default: false
   end
 
   add_index "users", ["username"], name: "index_users_on_username"

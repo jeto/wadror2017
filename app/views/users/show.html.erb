@@ -23,13 +23,13 @@
       <div class="panel-heading">Favorite</div>
       <div class="panel-body">
         <% if @user.favorite_beer %>
-        <p><strong>Beer:</strong> <%= link_to @user.favorite_beer %></p>
+        <p><strong>Beer:</strong> <%= link_to @user.favorite_beer, @user.favorite_beer %></p>
         <% end %>
         <% if @user.favorite_style %>
-        <p><strong>Style:</strong> <%= link_to @user.favorite_style %></p>
+        <p><strong>Style:</strong> <%= link_to @user.favorite_style, @user.favorite_style %></p>
         <% end %>
         <% if @user.favorite_brewery %>
-        <p><strong>Brewery:</strong> <%= link_to @user.favorite_brewery %></p>
+        <p><strong>Brewery:</strong> <%= link_to @user.favorite_brewery, @user.favorite_brewery %></p>
         <% end %>
       </div>
     </div>

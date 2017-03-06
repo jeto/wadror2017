@@ -1,4 +1,10 @@
 class RatingsController < ApplicationController
+  before_action :skip_if_cached, only: [:index]
+
+  def skip_if_cached
+    return render :index if fragment_exist?("ratings-cache")
+  end
+
   def index
     @ratings = Rating.all
     @top_beers = Beer.top 5

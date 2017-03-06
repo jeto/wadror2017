@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   include RatingAverage
 
-  has_secure_password
+  has_secure_password validations: false
+  validates_presence_of :password, on: :create, unless: :oauth?
 
   has_many :ratings, dependent: :destroy
   has_many :beers, through: :ratings
@@ -11,10 +12,10 @@ class User < ActiveRecord::Base
   has_many :applied_beer_clubs, through: :memberships, source: :beer_club
 
   validates :username, uniqueness: true,
-                       length: { in: 3..30 }
-  validates :password, length: { minimum: 4 }
+                       length: { in: 3..30 }, unless: :oauth?
+  validates :password, length: { minimum: 4 }, unless: :oauth?
   validates :password, format: { with: /([A-Z].*\d)|(\d.*[A-Z].*)/,
-              message: "must include at least one lowercase letter, one uppercase letter, and one digit" }
+              message: "must include at least one lowercase letter, one uppercase letter, and one digit" }, unless: :oauth?
 
   def favorite_beer
     return nil if ratings.empty?
