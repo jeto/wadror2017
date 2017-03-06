@@ -41,10 +41,10 @@ describe "User" do
         visit user_path user
 
         expect(page).to have_content 'has made 4 ratings'
-        expect(page).to have_content 'anonymous 10'
-        expect(page).to have_content 'anonymous 20'
-        expect(page).to have_content 'anonymous 15'
-        expect(page).to have_content 'anonymous 7'
+        expect(page).to have_content '10 anonymous'
+        expect(page).to have_content '20 anonymous'
+        expect(page).to have_content '15 anonymous'
+        expect(page).to have_content '7 anonymous'
       end
 
       it "rating is deleted from db when deleting" do

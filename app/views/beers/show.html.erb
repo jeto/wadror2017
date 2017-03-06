@@ -1,3 +1,9 @@
+<div style="border-style: solid;">
+  cache exists?: <%= ActionController::Base.new.fragment_exist?( @beer ) %>
+</div>
+<br>
+<% cache @beer do %>
+
 <h2>
   <%= @beer.name %>
 </h2>
@@ -18,6 +24,8 @@
   Has <%= pluralize(@beer.ratings.count, 'rating') %>, average <%= @beer.average_rating %>
   <% end %>
 </p>
+
+<% end %>
 
 <% if current_user %>
   <h4>give a rating:</h4>

@@ -34,7 +34,7 @@ describe "Rating" do
 
     visit ratings_path
 
-    expect(page).to have_content 'anonymous 10 Pekka'
-    expect(page).to have_content 'anonymous 20 Pekka'
+    expect(page).to have_content '10 anonymousPekka'
+    expect(page).to have_content '20 anonymousPekka'
   end
 end

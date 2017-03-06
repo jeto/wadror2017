@@ -3,25 +3,30 @@ class BeersController < ApplicationController
   before_action :ensure_that_admin, only: :destroy
   before_action :set_beer, only: [:show, :edit, :update, :destroy]
   before_action :set_breweries_and_styles_for_template, only: [:new, :edit, :create]
+  before_action :skip_if_cached, only: [:index]
+  before_action :clear_cache, only: [:create, :update, :destroy]
 
   # GET /beers
   # GET /beers.json
+  def skip_if_cached
+    @order = params[:order] || 'name'
+    return render :index if fragment_exist?("beerlist-#{@order}")
+  end
+
   def index
     @beers = Beer.includes(:brewery, :style).all
 
-    order = params[:order] || 'name'
-
-    @beers = case order
+    @beers = case @order
       when 'name' then @beers.sort_by{ |b| b.name }
       when 'brewery' then @beers.sort_by{ |b| b.brewery.name }
       when 'style' then @beers.sort_by{ |b| b.style.name }
     end
 
-    if order == session[:last_order]
+    if @order == session[:last_order]
       @beers.reverse!
       session[:last_order] = nil
     else
-      session[:last_order] = order
+      session[:last_order] = @order
     end
   end
 
@@ -93,6 +98,10 @@ class BeersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_beer
       @beer = Beer.find(params[:id])
+    end
+
+    def clear_cache
+      ["beerlist-name", "beerlist-brewery", "beerlist-style"].each{ |f| expire_fragment(f) }
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
