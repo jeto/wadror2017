@@ -33,6 +33,7 @@ class SessionsController < ApplicationController
       redirect_to user_path(user), notice: "Welcome back #{user.username}!"
     else
       account = User.create! username: authhash.nickname, oauth: true
+      session[:user_id] = account.id
       redirect_to user_path(account)
     end
   end
